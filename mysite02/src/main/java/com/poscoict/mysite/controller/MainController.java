@@ -21,7 +21,7 @@ public class MainController extends HttpServlet {
 
 		ActionFactory af = new MainActionFactory();
 		Action action = af.getAction(actionName);
-		action.excute(request, response);
+		action.execute(request, response);
 
 	}
 

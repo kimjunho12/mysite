@@ -12,7 +12,7 @@ import com.poscoict.web.util.MvcUtil;
 public class MainAction implements Action {
 
     @Override
-    public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MvcUtil.forward("/main/index", request, response);
     }
 }
