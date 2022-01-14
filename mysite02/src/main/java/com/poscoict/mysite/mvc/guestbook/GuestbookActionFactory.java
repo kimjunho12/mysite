@@ -12,9 +12,9 @@ public class GuestbookActionFactory extends ActionFactory {
 		switch (actionName) {
 		case "deleteform":
 			action = new DeleteFormAction();
-
 			break;
 		case "delete":
+			action = new DeleteAction();
 			break;
 		case "add":
 			break;
