@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,18 +12,22 @@
 		<div id="header">
 			<h1>MySite</h1>
 			<ul>
-				<li><a href="">로그인</a><li>
-				<li><a href="">회원가입</a><li>
-				<li><a href="">회원정보수정</a><li>
-				<li><a href="">로그아웃</a><li>
+				<li><a href="">로그인</a>
+				<li>
+				<li><a href="">회원가입</a>
+				<li>
+				<li><a href="">회원정보수정</a>
+				<li>
+				<li><a href="">로그아웃</a>
+				<li>
 				<li>님 안녕하세요 ^^;</li>
 			</ul>
 		</div>
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
-					<input type="submit" value="찾기">
+					<input type="text" id="kwd" name="kwd" value=""> <input
+						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -31,7 +37,7 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
+					</tr>
 					<tr>
 						<td>3</td>
 						<td><a href="">세 번째 글입니다.</a></td>
@@ -59,7 +65,7 @@
 				</table>
 				<div class="bottom">
 					<a href="" id="new-book">글쓰기</a>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<div id="navigation">

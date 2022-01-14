@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,21 +12,24 @@
 		<div id="header">
 			<h1>MySite</h1>
 			<ul>
-				<li><a href="">로그인</a><li>
-				<li><a href="">회원가입</a><li>
-				<li><a href="">회원정보수정</a><li>
-				<li><a href="">로그아웃</a><li>
+				<li><a href="">로그인</a>
+				<li>
+				<li><a href="">회원가입</a>
+				<li>
+				<li><a href="">회원정보수정</a>
+				<li>
+				<li><a href="">로그아웃</a>
+				<li>
 				<li>님 안녕하세요 ^^;</li>
 			</ul>
 		</div>
 		<div id="content">
 			<div id="guestbook" class="delete-form">
 				<form method="post" action="/guestbook">
-					<input type="hidden" name="a" value="delete">
-					<input type='hidden' name="no" value="">
-					<label>비밀번호</label>
-					<input type="password" name="password">
-					<input type="submit" value="확인">
+					<input type="hidden" name="a" value="delete"> <input
+						type='hidden' name="no" value=""> <label>비밀번호</label> <input
+						type="password" name="password"> <input type="submit"
+						value="확인">
 				</form>
 				<a href="">방명록 리스트</a>
 			</div>
