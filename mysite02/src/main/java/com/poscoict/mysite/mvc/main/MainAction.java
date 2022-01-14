@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.poscoict.web.mvc.Action;
+import com.poscoict.web.util.MvcUtil;
 
 public class MainAction implements Action {
 
     @Override
     public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/views/main/index.jsp").forward(request, response);
+        MvcUtil.forward("/main/index", request, response);
     }
 }
