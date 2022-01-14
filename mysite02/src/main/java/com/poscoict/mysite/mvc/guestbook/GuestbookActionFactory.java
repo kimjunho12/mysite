@@ -17,6 +17,7 @@ public class GuestbookActionFactory extends ActionFactory {
 			action = new DeleteAction();
 			break;
 		case "add":
+			action = new AddAction();
 			break;
 		default:
 			action = new IndexAction();
