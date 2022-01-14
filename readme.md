@@ -8,3 +8,6 @@
 3. mysite04 : spring mvc framework 기반, java configuration 1
 4. mysite05 : spring mvc framework 기반, java configuration 2 (web.xml x)
 5. mysite06 : spring boot framework 기반, java configuration
+
+## mysite02
+![factory pattern](https://images.velog.io/images/98kimjh/post/30321d8f-ddd3-4154-85fa-ea9263763ccd/image.png)
