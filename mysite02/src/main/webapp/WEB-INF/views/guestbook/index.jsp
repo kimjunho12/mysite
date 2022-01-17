@@ -18,18 +18,18 @@ List<GuestbookVo> list = (List<GuestbookVo>) request.getAttribute("list");
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="guestbook">
-				<form action="<%=request.getContextPath()%>/guestbook?a=add"
+				<form action="<%=request.getContextPath()%>/guestbook"
 					method="post">
-					<input type="hidden" name="a" value="insert">
+					<input type="hidden" name="a" value="add">
 					<table>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="name"></td>
+							<td><input type="text" name="name" required></td>
 							<td>비밀번호</td>
-							<td><input type="password" name="password"></td>
+							<td><input type="password" name="password" required></td>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="message" id="content"></textarea></td>
+							<td colspan=4><textarea name="message" id="content" required></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
