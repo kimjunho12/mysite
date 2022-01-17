@@ -19,24 +19,27 @@ public class UpdateAction implements Action {
 		// 접근 제어
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		
-		if(authUser == null) {
+
+		if (authUser == null) {
 			MvcUtil.redirect(request.getContextPath() + "/user?a=loginform", request, response);
 			return;
 		}
-		
 
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
-		
+
 		authUser.setName(name);
 		authUser.setPassword(password);
 		authUser.setGender(gender);
-	
-		new UserDao().update(authUser);
-		
-		MvcUtil.redirect(request.getContextPath(), request, response);		
+
+		if (new UserDao().update(authUser)) {
+			// session(authUser) 불필요 값 제거
+			authUser.setPassword(null);
+			authUser.setGender(null);
+		}
+
+		MvcUtil.redirect(request.getContextPath(), request, response);
 	}
 
 }
