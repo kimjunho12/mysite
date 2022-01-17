@@ -10,6 +10,55 @@ import com.poscoict.mysite.vo.UserVo;
 
 public class UserDao {
 
+	public UserVo findByEmailAndPassword(String email, String password) {
+		UserVo result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "SELECT no, name from user WHERE email=? AND password=?;";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				String name = rs.getString(2);
+				
+				result = new UserVo();
+				result.setNo(no);
+				result.setName(name);
+			}
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	public boolean insert(UserVo vo) {
 		boolean result = false;
 		Connection conn = null;
@@ -69,4 +118,5 @@ public class UserDao {
 		}
 		return conn;
 	}
+
 }
