@@ -26,6 +26,12 @@ public class UserActionFactory extends ActionFactory {
 		case "login" :
 			action = new LoginAction();
 			break;
+		case "logout" :
+			action = new LogoutAction();
+			break;
+		case "updateform" :
+			action = new UpdateFormAction();
+			break;
 		default:
 			action = new MainAction();
 			break;
