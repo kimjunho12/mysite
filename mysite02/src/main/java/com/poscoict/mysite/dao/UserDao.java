@@ -19,7 +19,7 @@ public class UserDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "SELECT no, name from user WHERE email=? AND password=?;";
+			String sql = "SELECT no, name from user WHERE email=? AND password=?";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
@@ -32,7 +32,7 @@ public class UserDao {
 			while (rs.next()) {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
-				
+
 				result = new UserVo();
 				result.setNo(no);
 				result.setName(name);
@@ -58,7 +58,101 @@ public class UserDao {
 		}
 		return result;
 	}
+
+	public UserVo findByNo(Long no) {
+		UserVo result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "SELECT name, email, gender FROM user WHERE no=?";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setLong(1, no);
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString(1);
+				String email = rs.getString(2);
+				String gender = rs.getString(3);
+
+				result = new UserVo();
+				result.setNo(no);
+				result.setName(name);
+				result.setEmail(email);
+				result.setGender(gender);
+			}
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
+	public boolean update(UserVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "UPDATE user SET name=?, password=?, gender=? WHERE no=?";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setLong(4, vo.getNo());
+
+			// 5. SQL 실행
+			result = pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+
 	public boolean insert(UserVo vo) {
 		boolean result = false;
 		Connection conn = null;

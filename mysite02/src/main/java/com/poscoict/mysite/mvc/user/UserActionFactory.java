@@ -32,6 +32,9 @@ public class UserActionFactory extends ActionFactory {
 		case "updateform" :
 			action = new UpdateFormAction();
 			break;
+		case "update" :
+			action = new UpdateAction();
+			break;
 		default:
 			action = new MainAction();
 			break;
