@@ -21,17 +21,17 @@ public class BoardActionFactory extends ActionFactory {
 		case "write":
 			action = new WriteAction();
 			break;
-//		case "reply":
-//			action = new ReplyAction();
-//			break;
+		case "reply":
+			action = new WriteFormAction();
+			break;
 //		case "delete":
 //			action = new DeleteAction();
 //			break;
-//		case "updateform":
-//			action = new UpdateFormAction();
-//			break;
-//		case "update":
-//			action = new UpdateAction();
+		case "modifyform":
+			action = new ModifyFormAction();
+			break;
+//		case "modify":
+//			action = new ModifyAction();
 //			break;
 		default:
 			action = new ListAction();
