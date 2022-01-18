@@ -36,7 +36,7 @@
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>${cnt-status.index }</td>
-							<td style="text-align: left; padding-left: ${10 * vo.depth}px;"><c:if
+							<td style="text-align: left; padding-left: ${20 * vo.depth}px;"><c:if
 									test="${vo.depth != 0 }">
 									<img
 										src="${pageContext.servletContext.contextPath }/assets/images/reply.png" />

@@ -19,6 +19,9 @@
 				<form class="board-form" method="post"
 					action="${pageContext.request.contextPath }/board">
 					<input type="hidden" name="a" value="write">
+					<input type="hidden" name="g_no" value="${vo.groupNo }" />
+					<input type="hidden" name="o_no" value="${vo.orderNo }" />
+					<input type="hidden" name="depth" value="${vo.depth }" />
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>

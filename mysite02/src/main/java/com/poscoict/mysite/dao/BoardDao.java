@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.poscoict.mysite.vo.BoardVo;
-import com.poscoict.mysite.vo.GuestbookVo;
 
 public class BoardDao {
 	public List<BoardVo> findAll() {
