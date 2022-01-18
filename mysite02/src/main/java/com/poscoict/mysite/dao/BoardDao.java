@@ -74,6 +74,68 @@ public class BoardDao {
 		return result;
 	}
 
+	public BoardVo findByNo(Long no) {
+		BoardVo result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "SELECT user_no, title, contents, hit+1, g_no, o_no, depth FROM board b JOIN user u ON b.user_no = u.no WHERE b.no = ?";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setLong(1, no);
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long userNo = rs.getLong(1);
+				String title = rs.getString(2);
+				String contents = rs.getString(3);
+				int hit = rs.getInt(4);
+				int groupNo = rs.getInt(5);
+				int orderNo = rs.getInt(6);
+				int depth = rs.getInt(7);
+
+				BoardVo vo = new BoardVo();
+				vo.setNo(no);
+				vo.setUserNo(userNo);
+				vo.setTitle(title);
+				vo.setContents(contents);
+				vo.setHit(hit);
+				vo.setGroupNo(groupNo);
+				vo.setOrderNo(orderNo);
+				vo.setDepth(depth);
+
+				result = vo;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 	public boolean insert(BoardVo vo) {
 		boolean result = false;
 		Connection conn = null;
@@ -88,7 +150,7 @@ public class BoardDao {
 			int groupNo = vo.getGroupNo();
 			int orderNo = vo.getOrderNo();
 			int depth = vo.getDepth();
-			
+
 			System.out.println(orderNo);
 
 			String updateSql;
@@ -103,7 +165,9 @@ public class BoardDao {
 			}
 
 			// 3. SQL 준비
-			String sql = "INSERT INTO board VALUES(null, ?, ?, ?, 0, " + (groupNo == 0 ? "(SELECT ifnull(max(b.g_no), 0) + 1 FROM board b)" : String.valueOf(groupNo)) + ", ?, ?, now())";
+			String sql = "INSERT INTO board VALUES(null, ?, ?, ?, 0, "
+					+ (groupNo == 0 ? "(SELECT ifnull(max(b.g_no), 0) + 1 FROM board b)" : String.valueOf(groupNo))
+					+ ", ?, ?, now())";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
@@ -155,4 +219,5 @@ public class BoardDao {
 		}
 		return conn;
 	}
+
 }

@@ -12,9 +12,9 @@ public class BoardActionFactory extends ActionFactory {
 //		case "list":
 //			action = new ListAction();
 //			break;
-//		case "view":
-//			action = new ViewAction();
-//			break;
+		case "view":
+			action = new ViewAction();
+			break;
 		case "writeform":
 			action = new WriteFormAction();
 			break;
