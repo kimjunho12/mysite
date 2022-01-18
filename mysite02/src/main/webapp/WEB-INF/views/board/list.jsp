@@ -41,12 +41,12 @@
 									<img
 										src="${pageContext.servletContext.contextPath }/assets/images/reply.png" />
 								</c:if> <a
-								href="${pageContext.servletContext.contextPath }/board?a=view">${vo.title }</a></td>
+								href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td><c:if test="${vo.userNo == authUser.no}">
-									<a href="" class="del">삭제</a>
+									<a href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
 								</c:if></td>
 						</tr>
 					</c:forEach>
@@ -67,7 +67,7 @@
 				<!-- pager 추가 -->
 
 				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
 				</div>
 			</div>
 		</div>

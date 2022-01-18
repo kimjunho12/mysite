@@ -21,8 +21,8 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth " + "FROM " + "	board b "
-					+ "		JOIN " + "	user u ON b.user_no = u.no "
+			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth " + "FROM "
+					+ "	board b " + "		JOIN " + "	user u ON b.user_no = u.no "
 //					+ "WHERE b.title LIKE \"%?%\" or b.contents Like \"%?%\" "
 					+ "ORDER BY b.g_no DESC , b.o_no ASC";
 			pstmt = conn.prepareStatement(sql);
@@ -38,8 +38,8 @@ public class BoardDao {
 				String userName = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
-				Long userNo = rs.getLong(6);	// 게시글 삭제 시 필요
-				int depth = rs.getInt(7);		// 답글 표시 시 필요
+				Long userNo = rs.getLong(6); // 게시글 삭제 시 필요
+				int depth = rs.getInt(7); // 답글 표시 시 필요
 
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -88,10 +88,12 @@ public class BoardDao {
 			int groupNo = vo.getGroupNo();
 			int orderNo = vo.getOrderNo();
 			int depth = vo.getDepth();
+			
+			System.out.println(orderNo);
 
 			String updateSql;
-			if (orderNo < 2) {
-				updateSql = "UPDATE board SET o_no = o_no + 1 WHERE o_no > ? and g_no > ?";
+			if (orderNo > 1) {
+				updateSql = "UPDATE board SET o_no = o_no + 1 WHERE o_no > ? and g_no = ?";
 				pstmt = conn.prepareStatement(updateSql);
 
 				pstmt.setInt(1, orderNo);
@@ -101,7 +103,7 @@ public class BoardDao {
 			}
 
 			// 3. SQL 준비
-			String sql = "INSERT INTO board " + "VALUES(null, ?, ?, ?, 0, ?, ?, ?, now())";
+			String sql = "INSERT INTO board VALUES(null, ?, ?, ?, 0, " + (groupNo == 0 ? "(SELECT ifnull(max(b.g_no), 0) + 1 FROM board b)" : String.valueOf(groupNo)) + ", ?, ?, now())";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
@@ -109,9 +111,8 @@ public class BoardDao {
 			pstmt.setString(2, title);
 			pstmt.setString(3, contents);
 
-			pstmt.setString(4, groupNo == 0 ? "(SELECT ifnull(max(g_no), 0) + 1 FROM board)" : String.valueOf(groupNo));
-			pstmt.setInt(5, orderNo == 0 ? 1 : orderNo + 1);
-			pstmt.setInt(6, depth == 0 && groupNo == 0 ? 0 : depth + 1);
+			pstmt.setInt(4, orderNo == 0 ? 1 : orderNo + 1);
+			pstmt.setInt(5, depth == 0 && groupNo == 0 ? 0 : depth + 1);
 
 			// 5. SQL 실행
 			result = pstmt.executeUpdate() == 1;

@@ -1,6 +1,5 @@
 package com.poscoict.mysite.mvc.board;
 
-import com.poscoict.mysite.mvc.main.MainAction;
 import com.poscoict.web.mvc.Action;
 import com.poscoict.web.mvc.ActionFactory;
 
@@ -16,11 +15,14 @@ public class BoardActionFactory extends ActionFactory {
 //		case "view":
 //			action = new ViewAction();
 //			break;
-//		case "addform":
-//			action = new AddFormAction();
-//			break;
-//		case "add":
-//			action = new AddAction();
+		case "writeform":
+			action = new WriteFormAction();
+			break;
+		case "write":
+			action = new WriteAction();
+			break;
+//		case "reply":
+//			action = new ReplyAction();
 //			break;
 //		case "delete":
 //			action = new DeleteAction();
