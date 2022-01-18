@@ -151,8 +151,6 @@ public class BoardDao {
 			int orderNo = vo.getOrderNo();
 			int depth = vo.getDepth();
 
-			System.out.println(orderNo);
-
 			String updateSql;
 			if (orderNo > 1) {
 				updateSql = "UPDATE board SET o_no = o_no + 1 WHERE o_no > ? and g_no = ?";
@@ -177,6 +175,52 @@ public class BoardDao {
 
 			pstmt.setInt(4, orderNo == 0 ? 1 : orderNo + 1);
 			pstmt.setInt(5, depth == 0 && groupNo == 0 ? 0 : depth + 1);
+
+			// 5. SQL 실행
+			result = pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public boolean update(BoardVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			Long no = vo.getNo();
+			String title = vo.getTitle();
+			String contents = vo.getContents();
+
+			// 3. SQL 준비
+			String sql = "UPDATE board SET title=?, contents=? WHERE no=?";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setLong(3, no);
+
 
 			// 5. SQL 실행
 			result = pstmt.executeUpdate() == 1;

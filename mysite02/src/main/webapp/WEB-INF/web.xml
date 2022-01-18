@@ -48,7 +48,7 @@
 		<url-pattern>/board</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	
+
 	<servlet>
 		<description></description>
 		<display-name>MainController</display-name>

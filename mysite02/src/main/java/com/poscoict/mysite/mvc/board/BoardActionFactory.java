@@ -22,7 +22,7 @@ public class BoardActionFactory extends ActionFactory {
 			action = new WriteAction();
 			break;
 		case "reply":
-			action = new WriteFormAction();
+			action = new ReplyAction();
 			break;
 //		case "delete":
 //			action = new DeleteAction();
@@ -30,9 +30,9 @@ public class BoardActionFactory extends ActionFactory {
 		case "modifyform":
 			action = new ModifyFormAction();
 			break;
-//		case "modify":
-//			action = new ModifyAction();
-//			break;
+		case "modify":
+			action = new ModifyAction();
+			break;
 		default:
 			action = new ListAction();
 			break;
