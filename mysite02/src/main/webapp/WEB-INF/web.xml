@@ -14,6 +14,18 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- Context(global) Parameters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+
+	<!-- Context Load Listner -->
+	<listener>
+		<listener-class>com.poscoict.web.listener.ContextLoadListener
+		</listener-class>
+	</listener>
+
 	<!-- Filters -->
 	<filter>
 		<display-name>EncodingFilter</display-name>
@@ -36,6 +48,10 @@
 		<servlet-name>MainController</servlet-name>
 		<servlet-class>com.poscoict.mysite.controller.MainController
 		</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/servlet-context.xml</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MainController</servlet-name>

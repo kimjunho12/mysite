@@ -30,4 +30,11 @@ public class MainController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	@Override
+	public void init() throws ServletException {
+		String configPath = this.getServletConfig().getInitParameter("config");
+		System.out.println("MainController.init() called : " + configPath);
+		super.init();
+	}
+
 }
