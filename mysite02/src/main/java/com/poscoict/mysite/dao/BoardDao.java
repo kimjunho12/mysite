@@ -21,7 +21,7 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no " + "FROM " + "	board b "
+			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth " + "FROM " + "	board b "
 					+ "		JOIN " + "	user u ON b.user_no = u.no "
 //					+ "WHERE b.title LIKE \"%?%\" or b.contents Like \"%?%\" "
 					+ "ORDER BY b.g_no DESC , b.o_no ASC";
@@ -38,7 +38,8 @@ public class BoardDao {
 				String userName = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
-				Long userNo = rs.getLong(6); // 게시글 삭제 시 필요
+				Long userNo = rs.getLong(6);	// 게시글 삭제 시 필요
+				int depth = rs.getInt(7);		// 답글 표시 시 필요
 
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -47,6 +48,7 @@ public class BoardDao {
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
 				vo.setUserNo(userNo);
+				vo.setDepth(depth);
 
 				result.add(vo);
 			}
