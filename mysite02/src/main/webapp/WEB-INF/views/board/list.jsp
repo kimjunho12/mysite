@@ -20,9 +20,9 @@
 				<form id="search_form"
 					action="${pageContext.servletContext.contextPath }/board"
 					method="post">
-					<input type="hidden" name="p" value="1" />
-					<input type="text" id="kwd" name="kwd" value=""> <input
-						type="submit" value="찾기">
+					<input type="hidden" name="p" value="1" /> <input type="text"
+						id="kwd" name="kwd" value=""> <input type="submit"
+						value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -66,7 +66,7 @@
 					<ul>
 						<li><a
 							href="${pageContext.servletContext.contextPath }/board?p=${pager.prePage }">◀</a></li>
-						<c:forEach begin="${pager.startPage }" end="${pager.endPage}"
+						<c:forEach begin="${pager.startPage }" end="${pager.endPage }"
 							var="page">
 							<c:choose>
 								<c:when test="${pager.currentPage eq page }">
