@@ -21,8 +21,8 @@
 					action="${pageContext.servletContext.contextPath }/board"
 					method="post">
 					<input type="hidden" name="p" value="1" /> <input type="text"
-						id="kwd" name="kwd" value=""> <input type="submit"
-						value="찾기">
+						id="kwd" name="kwd" value="${param.kwd }"><input
+						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -34,6 +34,12 @@
 						<th>&nbsp;</th>
 					</tr>
 					<c:set var="cnt" value="${fn:length(list) }" />
+					<c:if test="${pager.pageCount <= param.p and cnt eq 0 and not empty param.kwd }">
+						<p style="text-align: center;">결과가 존재하지 않습니다.</p>
+					</c:if>
+					<c:if test="${pager.pageCount < param.p and empty param.kwd}">
+						<p style="text-align: center;">잘못된 접근입니다.</p>
+					</c:if>
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>${(pager.pageCount - pager.currentPage) * pager.bpv + (pager.total % pager.bpv) - status.index}</td>
