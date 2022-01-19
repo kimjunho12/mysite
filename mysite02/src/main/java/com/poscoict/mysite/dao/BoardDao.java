@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import com.poscoict.mysite.vo.BoardVo;
 
 public class BoardDao {
-	public List<BoardVo> findAll() {
+	public List<BoardVo> findAll(Map<String, Integer> pager) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -23,10 +26,15 @@ public class BoardDao {
 			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth, b.state "
 					+ "FROM board b JOIN user u ON b.user_no = u.no "
 //					+ "WHERE b.title LIKE \"%?%\" or b.contents Like \"%?%\" "
-					+ "ORDER BY b.g_no DESC , b.o_no ASC";
+					+ "ORDER BY b.g_no DESC , b.o_no ASC "
+					+ "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
+			int board_per_view = pager.get("bpv");
+			int currentPage = pager.get("currentPage");
+			pstmt.setInt(1, (currentPage-1)*board_per_view);
+			pstmt.setInt(2, board_per_view);
 
 			// 5. SQL 실행
 			rs = pstmt.executeQuery();
@@ -340,6 +348,49 @@ public class BoardDao {
 			System.out.print("사유 : " + e.getMessage());
 		}
 		return conn;
+	}
+
+	public int totalCnt() {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "SELECT COUNT(*) FROM board";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 
 }

@@ -42,14 +42,16 @@
 										src="${pageContext.servletContext.contextPath }/assets/images/reply.png" />
 								</c:if> <c:choose>
 									<c:when test="${vo.state != 'deleted' }">
-									<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+										<a
+											href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
 									</c:when>
 									<c:otherwise>삭제 된 글 입니다.</c:otherwise>
 								</c:choose></td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><c:if test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
+							<td><c:if
+									test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
 									<a
 										href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }"
 										class="del">삭제</a>
@@ -61,13 +63,22 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<li><a
+							href="${pageContext.servletContext.contextPath }/board?p=${pager.prePage }">◀</a></li>
+						<c:forEach begin="${pager.startPage }" end="${pager.endPage}"
+							var="page">
+							<c:choose>
+								<c:when test="${pager.currentPage eq page }">
+									<li class="selected">${page }</li>
+								</c:when>
+								<c:otherwise>
+									<li><a
+										href="${pageContext.servletContext.contextPath }/board?p=${page}">${page }</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<li><a
+							href="${pageContext.servletContext.contextPath }/board?p=${pager.nextPage }">▶</a></li>
 					</ul>
 				</div>
 				<!-- pager 추가 -->
