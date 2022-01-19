@@ -24,16 +24,15 @@ public class BoardDao {
 
 			// 3. SQL 준비
 			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth, b.state "
-					+ "FROM board b JOIN user u ON b.user_no = u.no "
-					+ "WHERE b.title LIKE '%"+keyWord+"%' or b.contents Like '%"+keyWord+"%' "
-					+ "ORDER BY b.g_no DESC , b.o_no ASC "
+					+ "FROM board b JOIN user u ON b.user_no = u.no " + "WHERE b.title LIKE '%" + keyWord
+					+ "%' or b.contents Like '%" + keyWord + "%' " + "ORDER BY b.g_no DESC , b.o_no ASC "
 					+ "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
 			int board_per_view = pager.get("bpv");
 			int currentPage = pager.get("currentPage");
-			pstmt.setInt(1, (currentPage-1)*board_per_view);
+			pstmt.setInt(1, (currentPage - 1) * board_per_view);
 			pstmt.setInt(2, board_per_view);
 
 			// 5. SQL 실행
@@ -253,7 +252,7 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
+
 	public boolean delete(Long no) {
 		boolean result = false;
 		Connection conn = null;
@@ -292,7 +291,7 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
+
 	public boolean updateHit(Long no) {
 		boolean result = false;
 		Connection conn = null;
@@ -350,7 +349,7 @@ public class BoardDao {
 		return conn;
 	}
 
-	public int totalCnt() {
+	public int totalCnt(String keyWord) {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -359,7 +358,8 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "SELECT COUNT(*) FROM board";
+			String sql = "SELECT COUNT(*) FROM board "
+					+ "WHERE title LIKE '%" + keyWord + "%' or contents Like '%" + keyWord + "%'";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩

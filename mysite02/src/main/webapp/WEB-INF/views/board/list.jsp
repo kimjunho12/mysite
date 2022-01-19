@@ -36,7 +36,7 @@
 					<c:set var="cnt" value="${fn:length(list) }" />
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
-							<td>${cnt-status.index }</td>
+							<td>${(pager.pageCount - pager.currentPage) * pager.bpv + (pager.total % pager.bpv) - status.index}</td>
 							<td style="text-align: left; padding-left: ${20 * vo.depth}px;"><c:if
 									test="${vo.depth != 0 }">
 									<img

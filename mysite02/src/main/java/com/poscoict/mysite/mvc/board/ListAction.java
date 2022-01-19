@@ -31,8 +31,9 @@ public class ListAction implements Action {
 			MvcUtil.redirect(request.getContextPath() + "/board?p=1", request, response);
 			return;
 		}
-		int total = dao.totalCnt();
-		int pageCount = (int) Math.ceil((double) dao.totalCnt() / BOARD_PER_VIEW);
+		
+		int totalCnt = dao.totalCnt(keyWord);
+		int pageCount = (int) Math.ceil((double) totalCnt  / BOARD_PER_VIEW);
 		int currentPage = Integer.parseInt(p);
 		int endPage = (int) (Math.ceil((double) currentPage / PAGE_PER_VIEW)) * PAGE_PER_VIEW;
 		int startPage = endPage - PAGE_PER_VIEW + 1;
@@ -47,6 +48,7 @@ public class ListAction implements Action {
 		pager.put("nextPage", nextPage);
 		pager.put("prePage", prePage);
 		pager.put("bpv", BOARD_PER_VIEW);
+		pager.put("total", totalCnt);
 
 		List<BoardVo> list = dao.findAll(pager, keyWord);
 
