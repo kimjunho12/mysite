@@ -24,9 +24,9 @@ public class BoardActionFactory extends ActionFactory {
 		case "reply":
 			action = new ReplyAction();
 			break;
-//		case "delete":
-//			action = new DeleteAction();
-//			break;
+		case "delete":
+			action = new DeleteAction();
+			break;
 		case "modifyform":
 			action = new ModifyFormAction();
 			break;

@@ -49,7 +49,7 @@
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><c:if test="${vo.userNo == authUser.no}">
+							<td><c:if test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
 									<a
 										href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }"
 										class="del">삭제</a>

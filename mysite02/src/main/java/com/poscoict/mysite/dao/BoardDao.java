@@ -245,6 +245,45 @@ public class BoardDao {
 		}
 		return result;
 	}
+	
+	public boolean delete(Long no) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "UPDATE board SET state = 'deleted' WHERE no = ?;";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩
+			pstmt.setLong(1, no);
+
+			// 5. SQL 실행
+			result = pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("MYSQL 연결 실패");
+			System.out.print("사유 : " + e.getMessage());
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
