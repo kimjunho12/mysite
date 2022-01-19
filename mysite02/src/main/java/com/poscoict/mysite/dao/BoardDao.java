@@ -20,8 +20,8 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth " + "FROM "
-					+ "	board b " + "		JOIN " + "	user u ON b.user_no = u.no "
+			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth, b.state "
+					+ "FROM board b JOIN user u ON b.user_no = u.no "
 //					+ "WHERE b.title LIKE \"%?%\" or b.contents Like \"%?%\" "
 					+ "ORDER BY b.g_no DESC , b.o_no ASC";
 			pstmt = conn.prepareStatement(sql);
@@ -39,6 +39,7 @@ public class BoardDao {
 				String regDate = rs.getString(5);
 				Long userNo = rs.getLong(6); // 게시글 삭제 시 필요
 				int depth = rs.getInt(7); // 답글 표시 시 필요
+				String state = rs.getString(8);
 
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -48,6 +49,7 @@ public class BoardDao {
 				vo.setRegDate(regDate);
 				vo.setUserNo(userNo);
 				vo.setDepth(depth);
+				vo.setState(state);
 
 				result.add(vo);
 			}
@@ -164,7 +166,7 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "INSERT INTO board VALUES(null, ?, ?, ?, 0, "
 					+ (groupNo == 0 ? "(SELECT ifnull(max(b.g_no), 0) + 1 FROM board b)" : String.valueOf(groupNo))
-					+ ", ?, ?, now())";
+					+ ", ?, ?, now(), 'normal')";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
@@ -219,7 +221,6 @@ public class BoardDao {
 			pstmt.setString(1, title);
 			pstmt.setString(2, contents);
 			pstmt.setLong(3, no);
-
 
 			// 5. SQL 실행
 			result = pstmt.executeUpdate() == 1;

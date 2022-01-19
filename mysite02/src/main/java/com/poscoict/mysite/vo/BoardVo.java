@@ -9,6 +9,7 @@ public class BoardVo {
 	private int orderNo;
 	private int depth;
 	private String regDate;
+	private String state;
 
 	private Long userNo;
 	private String userName;
@@ -93,11 +94,19 @@ public class BoardVo {
 		this.userName = userName;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", groupNo="
-				+ groupNo + ", orderNo=" + orderNo + ", depth=" + depth + ", regDate=" + regDate + ", userNo=" + userNo
-				+ ", userName=" + userName + "]";
+				+ groupNo + ", orderNo=" + orderNo + ", depth=" + depth + ", regDate=" + regDate + ", state=" + state
+				+ ", userNo=" + userNo + ", userName=" + userName + "]";
 	}
 
 }
