@@ -24,6 +24,8 @@ public class ListAction implements Action {
 		BoardDao dao = new BoardDao();
 
 		String p = request.getParameter("p");
+		String keyWord = request.getParameter("kwd");
+		keyWord = StringUtils.isEmptyOrWhitespaceOnly(keyWord) ? "" : keyWord;
 
 		if (StringUtils.isEmptyOrWhitespaceOnly(p)) {
 			MvcUtil.redirect(request.getContextPath() + "/board?p=1", request, response);
@@ -46,7 +48,7 @@ public class ListAction implements Action {
 		pager.put("prePage", prePage);
 		pager.put("bpv", BOARD_PER_VIEW);
 
-		List<BoardVo> list = dao.findAll(pager);
+		List<BoardVo> list = dao.findAll(pager, keyWord);
 
 		request.setAttribute("list", list);
 		request.setAttribute("pager", pager);

@@ -14,7 +14,7 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import com.poscoict.mysite.vo.BoardVo;
 
 public class BoardDao {
-	public List<BoardVo> findAll(Map<String, Integer> pager) {
+	public List<BoardVo> findAll(Map<String, Integer> pager, String keyWord) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -25,7 +25,7 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "SELECT " + "b.no, b.title, u.name, b.hit, b.reg_date, u.no, b.depth, b.state "
 					+ "FROM board b JOIN user u ON b.user_no = u.no "
-//					+ "WHERE b.title LIKE \"%?%\" or b.contents Like \"%?%\" "
+					+ "WHERE b.title LIKE '%"+keyWord+"%' or b.contents Like '%"+keyWord+"%' "
 					+ "ORDER BY b.g_no DESC , b.o_no ASC "
 					+ "LIMIT ?, ?";
 			pstmt = conn.prepareStatement(sql);
