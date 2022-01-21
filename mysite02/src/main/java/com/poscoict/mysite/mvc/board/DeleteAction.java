@@ -15,7 +15,8 @@ public class DeleteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean result = new BoardDao().delete(Long.parseLong(request.getParameter("no")));
-		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+		String currentPage = request.getParameter("p");
+		MvcUtil.redirect(request.getContextPath() + "/board?p=" + currentPage, request, response);
 	}
 
 }

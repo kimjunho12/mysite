@@ -60,7 +60,7 @@
 							<td><c:if
 									test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
 									<a
-										href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }"
+										href="${pageContext.servletContext.contextPath }/board?a=delete&p=${param.p }&no=${vo.no }"
 										class="del">삭제</a>
 								</c:if></td>
 						</tr>
