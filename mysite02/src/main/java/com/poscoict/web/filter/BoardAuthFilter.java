@@ -28,6 +28,7 @@ public class BoardAuthFilter implements Filter {
 		if (authUser == null
 				&& !StringUtils.isEmptyOrWhitespaceOnly(req.getParameter("a"))
 				&& !"view".equals(req.getParameter("a"))) {
+			session.setAttribute("originURL", req.getRequestURI() + "?" + req.getQueryString());
 			MvcUtil.redirect(((HttpServletRequest) request).getContextPath() + "/user?a=loginform", ((HttpServletRequest) request), ((HttpServletResponse) response));
 			return;
 		}

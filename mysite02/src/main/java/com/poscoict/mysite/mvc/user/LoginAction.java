@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.util.StringUtils;
 import com.poscoict.mysite.dao.UserDao;
 import com.poscoict.mysite.vo.UserVo;
 import com.poscoict.web.mvc.Action;
@@ -33,7 +34,13 @@ public class LoginAction implements Action {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
-		MvcUtil.redirect(request.getContextPath(), request, response);
+		String originURL = (String) session.getAttribute("originURL");
+		System.out.println(originURL);
+		if (StringUtils.isEmptyOrWhitespaceOnly(originURL)) {
+			MvcUtil.redirect(request.getContextPath(), request, response);			
+		} else {
+			MvcUtil.redirect(originURL, request, response);
+		}
 
 	}
 
