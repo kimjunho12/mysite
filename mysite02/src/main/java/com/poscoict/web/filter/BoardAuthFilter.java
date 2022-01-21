@@ -24,7 +24,10 @@ public class BoardAuthFilter implements Filter {
 		// 접근 제어
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null && !StringUtils.isEmptyOrWhitespaceOnly(((HttpServletRequest) request).getParameter("a"))) {
+		HttpServletRequest req = (HttpServletRequest) request;
+		if (authUser == null
+				&& !StringUtils.isEmptyOrWhitespaceOnly(req.getParameter("a"))
+				&& !"view".equals(req.getParameter("a"))) {
 			MvcUtil.redirect(((HttpServletRequest) request).getContextPath() + "/user?a=loginform", ((HttpServletRequest) request), ((HttpServletResponse) response));
 			return;
 		}
