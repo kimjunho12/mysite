@@ -160,7 +160,7 @@ public class BoardDao {
 			int depth = vo.getDepth();
 
 			String updateSql;
-			if (orderNo > 1) {
+			if (orderNo > 0) {
 				updateSql = "UPDATE board SET o_no = o_no + 1 WHERE o_no > ? and g_no = ?";
 				pstmt = conn.prepareStatement(updateSql);
 
