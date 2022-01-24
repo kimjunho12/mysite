@@ -8,6 +8,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>mysite</module>
+		<module>mysite03</module>
 	</modules>
 	<properties>	<!-- 속성 설정 -->
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
