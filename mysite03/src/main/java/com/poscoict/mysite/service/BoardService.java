@@ -23,13 +23,14 @@ public class BoardService {
 		return boardRepository.insert(boardVo);
 	}
 
-	// view에서 1개의 게시글 가지고오는 
+	// 글 수정 / 답글 전
 	public BoardVo getContents(Long no) {
 		return boardRepository.findByNo(no);
 	}
 
-	// 글 수정 전
+	// view에서 1개의 게시글 가지고오는
 	public BoardVo getContents(Long no, Long userNO) {
+		boardRepository.updateHit(no);
 		return boardRepository.findByNo(no);
 	}
 

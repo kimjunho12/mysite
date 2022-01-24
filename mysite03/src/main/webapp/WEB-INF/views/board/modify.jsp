@@ -17,7 +17,7 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post"
-					action="${pageContext.request.contextPath }/board/modify/${vo.no }">
+					action="${pageContext.request.contextPath }/board/modify/${vo.no }?p=${param.p }&kwd=${param.kwd }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>

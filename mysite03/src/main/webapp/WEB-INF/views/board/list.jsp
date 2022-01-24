@@ -20,8 +20,7 @@
 				<form id="search_form"
 					action="${pageContext.servletContext.contextPath }/board"
 					method="post">
-					<input type="hidden" name="p" value="1" /> <input type="text"
-						id="kwd" name="kwd" value="${param.kwd }"><input
+					<input type="text" id="kwd" name="kwd" value="${param.kwd }"><input
 						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -51,7 +50,7 @@
 								</c:if> <c:choose>
 									<c:when test="${vo.state != 'deleted' }">
 										<a
-											href="${pageContext.servletContext.contextPath }/board/view/${vo.no }">${vo.title }</a>
+											href="${pageContext.servletContext.contextPath }/board/view/${vo.no }?p=${param.p }&kwd=${param.kwd }">${vo.title }</a>
 									</c:when>
 									<c:otherwise>삭제 된 글 입니다.</c:otherwise>
 								</c:choose></td>
@@ -61,7 +60,7 @@
 							<td><c:if
 									test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
 									<a
-										href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }"
+										href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }?p=${param.p }&kwd=${param.kwd }"
 										class="del">삭제</a>
 								</c:if></td>
 						</tr>
@@ -72,7 +71,7 @@
 				<div class="pager">
 					<ul>
 						<li><a
-							href="${pageContext.servletContext.contextPath }/board?p=${pager.prePage }">◀</a></li>
+							href="${pageContext.servletContext.contextPath }/board?p=${pager.prePage }&kwd=${param.kwd }">◀</a></li>
 						<c:forEach begin="${pager.startPage }" end="${pager.endPage }"
 							var="page">
 							<c:choose>
@@ -81,12 +80,12 @@
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="${pageContext.servletContext.contextPath }/board?p=${page}">${page }</a></li>
+										href="${pageContext.servletContext.contextPath }/board?p=${page}&kwd=${param.kwd }">${page }</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<li><a
-							href="${pageContext.servletContext.contextPath }/board?p=${pager.nextPage }">▶</a></li>
+							href="${pageContext.servletContext.contextPath }/board?p=${pager.nextPage }&kwd=${param.kwd }">▶</a></li>
 					</ul>
 				</div>
 				<!-- pager 추가 -->
