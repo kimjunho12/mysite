@@ -10,7 +10,23 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+	<!-- Message Converter, Handler Mapping, Validator 생성 및 설정 -->
+	<mvc:annotation-driven />
+
+	<!-- 서블릿 컨테이너(Tomcat)의 DefaultServlet 위임 (delegate) Handler -->
+	<mvc:default-servlet-handler />
+
+	<!-- ViewResolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
 	<context:annotation-config />
-	<context:component-scan base-package="com.poscoict.mysite.controller" />
+	<context:component-scan
+		base-package="com.poscoict.mysite.controller" />
 
 </beans>
