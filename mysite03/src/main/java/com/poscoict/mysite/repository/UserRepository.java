@@ -127,17 +127,16 @@ public class UserRepository {
 			// 3. SQL 준비
 			String sql = noPassword
 					? "UPDATE user SET name=?, gender=? WHERE no=?"
-					: "UPDATE user SET name=?, password=?, gender=? WHERE no=?";
+					: "UPDATE user SET name=?, gender=?, password=? WHERE no=?";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩
 			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getGender());
 			if (noPassword) {
-				pstmt.setString(2, vo.getGender());
 				pstmt.setLong(3, vo.getNo());
 			} else {
-				pstmt.setString(2, vo.getPassword());
-				pstmt.setString(3, vo.getGender());
+				pstmt.setString(3, vo.getPassword());
 				pstmt.setLong(4, vo.getNo());
 			}
 
