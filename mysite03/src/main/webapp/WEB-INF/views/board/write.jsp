@@ -17,10 +17,9 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post"
-					action="${pageContext.request.contextPath }/board">
-					<input type="hidden" name="a" value="write">
-					<input type="hidden" name="g_no" value="${empty vo.groupNo ? 0 : vo.groupNo}" />
-					<input type="hidden" name="o_no" value="${empty vo.orderNo ? 0 : vo.orderNo}" />
+					action="${pageContext.request.contextPath }/board/write">
+					<input type="hidden" name="groupNo" value="${empty vo.groupNo ? 0 : vo.groupNo}" />
+					<input type="hidden" name="orderNo" value="${empty vo.orderNo ? 0 : vo.orderNo}" />
 					<input type="hidden" name="depth" value="${empty vo.depth ? 0 : vo.depth}" />
 					<table class="tbl-ex">
 						<tr>

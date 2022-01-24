@@ -34,7 +34,8 @@
 						<th>&nbsp;</th>
 					</tr>
 					<c:set var="cnt" value="${fn:length(list) }" />
-					<c:if test="${pager.pageCount <= param.p and cnt eq 0 and not empty param.kwd }">
+					<c:if
+						test="${pager.pageCount <= param.p and cnt eq 0 and not empty param.kwd }">
 						<p style="text-align: center;">결과가 존재하지 않습니다.</p>
 					</c:if>
 					<c:if test="${pager.pageCount < param.p and empty param.kwd}">
@@ -50,7 +51,7 @@
 								</c:if> <c:choose>
 									<c:when test="${vo.state != 'deleted' }">
 										<a
-											href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+											href="${pageContext.servletContext.contextPath }/board/view/${vo.no }">${vo.title }</a>
 									</c:when>
 									<c:otherwise>삭제 된 글 입니다.</c:otherwise>
 								</c:choose></td>
@@ -60,7 +61,7 @@
 							<td><c:if
 									test="${vo.userNo == authUser.no and vo.state != 'deleted' }">
 									<a
-										href="${pageContext.servletContext.contextPath }/board?a=delete&p=${param.p }&no=${vo.no }"
+										href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }"
 										class="del">삭제</a>
 								</c:if></td>
 						</tr>
@@ -91,8 +92,7 @@
 				<!-- pager 추가 -->
 
 				<div class="bottom">
-					<a
-						href="${pageContext.servletContext.contextPath }/board?a=writeform"
+					<a href="${pageContext.servletContext.contextPath }/board/write"
 						id="new-book">글쓰기</a>
 				</div>
 			</div>
