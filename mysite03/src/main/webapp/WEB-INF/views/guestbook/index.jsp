@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	pageContext.setAttribute("newline", "\n");
+pageContext.setAttribute("newline", "\n");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,9 +21,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath }/guestbook"
+				<form action="${pageContext.request.contextPath }/guestbook/add"
 					method="post">
-					<input type="hidden" name="a" value="add">
 					<table>
 						<tr>
 							<td>이름</td>
@@ -50,7 +49,7 @@
 									<td>${vo.name }</td>
 									<td>${vo.reg_date }</td>
 									<td><a
-										href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }">삭제</a></td>
+										href="${pageContext.request.contextPath }/guestbook/delete/${vo.no }">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4>${fn:replace(vo.message, newline, "<br>") }</td>
