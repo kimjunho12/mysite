@@ -9,12 +9,13 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Repository;
 
 import com.mysql.cj.util.StringUtils;
+import com.poscoict.mysite.exception.UserRepositoryException;
 import com.poscoict.mysite.vo.UserVo;
 
 @Repository
 public class UserRepository {
 
-	public UserVo findByEmailAndPassword(String email, String password) {
+	public UserVo findByEmailAndPassword(String email, String password) throws UserRepositoryException {
 		UserVo result = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -44,6 +45,7 @@ public class UserRepository {
 		} catch (SQLException e) {
 			System.out.println("MYSQL 연결 실패");
 			System.out.print("사유 : " + e.getMessage());
+			throw new UserRepositoryException(e.toString());
 		} finally {
 			// 자원 정리
 			try {

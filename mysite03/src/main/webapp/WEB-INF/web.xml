@@ -18,7 +18,8 @@
 	<!-- Encoding Filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -29,6 +30,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 공통 에러페이지 -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
 
 	<!-- Dispatcher Servlet -->
 	<servlet>
