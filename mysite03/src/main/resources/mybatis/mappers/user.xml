@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">	<!-- 구별을 위한 id상위(prefix) 개념 -->
+	<select id="findByEmailAndPassword" parameterType="map"
+		resultType="uservo">
+	<![CDATA[
+		SELECT no, name from user WHERE email=#{email } AND password=#{password }
+	]]>
+	</select>
+
+	<select id="findByNo" parameterType="long" resultType="uservo">
+	<![CDATA[
+		SELECT name, email, gender FROM user WHERE no=#{no }
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="uservo">
+	<![CDATA[	
+		INSERT INTO user VALUES(null, #{name }, #{email }, #{password }, #{gender }, now())
+	]]>
+	</insert>
+
+	<update id="update" parameterType="uservo">
+		<choose>
+			<!-- uservo의 field(password)를 통해 분기 -->
+			<when test="password == null or password == ''">
+			<![CDATA[	
+			UPDATE user SET name=#{name }, gender=#{gender } WHERE no=#{no }
+			]]>
+			</when>
+			<otherwise>
+			<![CDATA[
+			UPDATE user SET name=#{name }, gender=#{gender }, password=#{password } WHERE no=#{no }
+			]]>
+			</otherwise>
+		</choose>
+	</update>
+
+	<update id="update2" parameterType="uservo">
+			<![CDATA[	
+			UPDATE user
+				SET name=#{name }, gender=#{gender }
+			]]>
+		<if test="password == null or password == ''">
+			, password=#{password }
+		</if>			
+			<![CDATA[	
+			WHERE no=#{no }"
+			]]>
+	</update>
+</mapper>
