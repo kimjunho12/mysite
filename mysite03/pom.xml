@@ -14,7 +14,7 @@
 
 	<properties>	<!-- 속성 설정 -->
 		<!-- spring 변수 지정 -->
-		<org.springframework-vesion>4.3.4.RELEASE</org.springframework-vesion>
+		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
 	</properties>
 
 	<dependencies>	<!-- 라이브러리(의존성) 추가 -->
@@ -22,21 +22,35 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-vesion}</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-vesion}</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${org.springframework-vesion}</version>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- Common DBCP -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
