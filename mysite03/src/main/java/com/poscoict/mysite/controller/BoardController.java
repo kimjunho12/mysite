@@ -24,9 +24,9 @@ public class BoardController {
 
 	@RequestMapping("")
 	public String list(Model model, @RequestParam(name = "p", required = true, defaultValue = "1") Integer p,
-			@RequestParam(name = "kwd", required = false, defaultValue = "") String keyWorld) {
+			@RequestParam(name = "kwd", required = false, defaultValue = "") String kwd) {
 
-		Map<String, Object> map = boardService.getContentsList(p, keyWorld);
+		Map<String, Object> map = boardService.getContentsList(p, kwd);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("pager", map.get("pager"));
 

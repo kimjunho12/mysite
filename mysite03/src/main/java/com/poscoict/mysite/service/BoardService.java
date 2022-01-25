@@ -20,7 +20,7 @@ public class BoardService {
 			increaseGroupOrderNo(boardVo);
 		}
 
-		return boardRepository.insert(boardVo);
+		return 1 == boardRepository.insert(boardVo);
 	}
 
 	// 글 수정 / 답글 전
@@ -36,12 +36,12 @@ public class BoardService {
 
 	// 글 수정
 	public Boolean updateContents(BoardVo boardVo) {
-		return boardRepository.update(boardVo);
+		return 1 == boardRepository.update(boardVo);
 	}
 
 	// 글 삭제
 	public Boolean deleteContents(Long no, Long userNo) {
-		return boardRepository.delete(no, userNo);
+		return 1 == boardRepository.delete(no, userNo);
 	}
 	
 	private static final int PAGE_PER_VIEW = 5;
