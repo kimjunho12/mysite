@@ -34,7 +34,7 @@
 					</tr>
 					<c:set var="cnt" value="${fn:length(list) }" />
 					<c:if
-						test="${pager.pageCount <= param.p and cnt eq 0 and not empty param.kwd }">
+						test="${pager.pageCount <= pager.currentPage and cnt eq 0 and not empty param.kwd }">
 						<p style="text-align: center;">결과가 존재하지 않습니다.</p>
 					</c:if>
 					<c:if test="${pager.pageCount < param.p and empty param.kwd}">

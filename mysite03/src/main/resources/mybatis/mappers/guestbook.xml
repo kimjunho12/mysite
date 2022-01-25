@@ -16,7 +16,7 @@
 
 	<select id="findAll" resultType="guestbookvo">
 	<![CDATA[
-		SELECT no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') regDate, message
+		SELECT no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') reg_date, message
 		FROM guestbook ORDER BY reg_date DESC
 	]]>
 	</select>
