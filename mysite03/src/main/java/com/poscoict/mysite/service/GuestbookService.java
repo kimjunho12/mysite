@@ -18,11 +18,11 @@ public class GuestbookService {
 	}
 
 	public Boolean addMessage(GuestbookVo guestbookVo) {
-		return guestbookRepository.insert(guestbookVo);
+		return 1 == guestbookRepository.insert(guestbookVo);
 	}
 
 	public Boolean deleteMessage(Long no, String password) {
-		return guestbookRepository.delete(no, password);
+		return 1 == guestbookRepository.delete(no, password);
 	}
 
 }

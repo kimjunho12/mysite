@@ -24,7 +24,9 @@ public class GuestbookController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(GuestbookVo guestbookVo) {
+		System.out.println("guestbookVo : " + guestbookVo);
 		guestbookService.addMessage(guestbookVo);
+		System.out.println("guestbookVo : " + guestbookVo);
 		return "redirect:/guestbook";
 	}
 
@@ -33,9 +35,9 @@ public class GuestbookController {
 		model.addAttribute("no", no);
 		return "guestbook/delete";
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(GuestbookVo guestbookVo) {		// vo로 받던지 no와 password로 받던지?
+	public String delete(GuestbookVo guestbookVo) { // vo로 받던지 no와 password로 받던지?
 		guestbookService.deleteMessage(guestbookVo.getNo(), guestbookVo.getPassword());
 		return "redirect:/guestbook";
 	}
