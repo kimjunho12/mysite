@@ -12,7 +12,11 @@
 
 
 	<!-- Message Converter, Handler Mapping, Validator 생성 및 설정 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven >
+		<mvc:argument-resolvers>
+			<bean class="com.poscoict.mysite.security.AuthUserHandlerMethodArgumentResolver"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<!-- 서블릿 컨테이너(Tomcat)의 DefaultServlet 위임 (delegate) Handler -->
 	<mvc:default-servlet-handler />

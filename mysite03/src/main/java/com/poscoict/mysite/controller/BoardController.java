@@ -2,8 +2,6 @@ package com.poscoict.mysite.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poscoict.mysite.security.Auth;
+import com.poscoict.mysite.security.AuthUser;
 import com.poscoict.mysite.service.BoardService;
 import com.poscoict.mysite.vo.BoardVo;
 import com.poscoict.mysite.vo.UserVo;
@@ -36,28 +35,18 @@ public class BoardController {
 
 	@Auth
 	@RequestMapping(value = { "/write", "/reply" }, method = RequestMethod.GET)
-	public String write(@RequestParam(name = "no", required = true, defaultValue = "0") Long no, HttpSession session,
-			Model model) {
-
-//		UserVo authUser = (UserVo) session.getAttribute("authUser");
-//		if (authUser == null) {
-//			return "redirect:/user/login";
-//		}
+	public String write(@RequestParam(name = "no", required = true, defaultValue = "0") Long no, Model model) {
 
 		model.addAttribute("vo", boardService.getContents(no));
 
 		return "board/write";
 	}
 
+	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(BoardVo boardVo, HttpSession session,
+	public String write(@AuthUser UserVo authUser, BoardVo boardVo,
 			@RequestParam(name = "p", required = true, defaultValue = "1") Integer p,
 			@RequestParam(name = "kwd", required = false, defaultValue = "") String keyWorld) {
-
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/user/login";
-		}
 
 		boardVo.setUserNo(authUser.getNo());
 		boardService.addContents(boardVo);
@@ -66,8 +55,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/view/{no}")
-	public String view(@PathVariable("no") Long no, HttpSession session, Model model) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+	public String view(@PathVariable("no") Long no, @AuthUser UserVo authUser, Model model) {
 
 		Long user = -1L;
 		if (authUser != null) {
@@ -80,43 +68,31 @@ public class BoardController {
 		return "board/view";
 	}
 
+	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
-	public String modify(@PathVariable("no") Long no, HttpSession session, Model model) {
-
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/user/login";
-		}
+	public String modify(@PathVariable("no") Long no, Model model) {
 
 		model.addAttribute("vo", boardService.getContents(no));
 
 		return "board/modify";
 	}
 
+	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.POST)
-	public String modify(@PathVariable("no") Long no, BoardVo boardVo, HttpSession session,
+	public String modify(@PathVariable("no") Long no, BoardVo boardVo,
 			@RequestParam(name = "p", required = true, defaultValue = "1") Integer p,
 			@RequestParam(name = "kwd", required = false, defaultValue = "") String keyWorld) {
-
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/user/login";
-		}
 
 		boardVo.setNo(no);
 		boardService.updateContents(boardVo);
 		return "redirect:/board/view/{no}?p=" + p + "&kwd=" + "" + keyWorld;
 	}
 
+	@Auth
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
-	public String delete(@PathVariable("no") Long no,
+	public String delete(@PathVariable("no") Long no, @AuthUser UserVo authUser,
 			@RequestParam(name = "p", required = true, defaultValue = "1") Integer p,
-			@RequestParam(name = "kwd", required = false, defaultValue = "") String keyWorld, HttpSession session) {
-
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/user/login";
-		}
+			@RequestParam(name = "kwd", required = false, defaultValue = "") String keyWorld) {
 
 		boardService.deleteContents(no, authUser.getNo());
 
