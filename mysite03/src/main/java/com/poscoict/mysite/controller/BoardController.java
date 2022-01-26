@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.poscoict.mysite.security.Auth;
 import com.poscoict.mysite.service.BoardService;
 import com.poscoict.mysite.vo.BoardVo;
 import com.poscoict.mysite.vo.UserVo;
@@ -33,14 +34,15 @@ public class BoardController {
 		return "board/list";
 	}
 
+	@Auth
 	@RequestMapping(value = { "/write", "/reply" }, method = RequestMethod.GET)
 	public String write(@RequestParam(name = "no", required = true, defaultValue = "0") Long no, HttpSession session,
 			Model model) {
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			return "redirect:/user/login";
-		}
+//		UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		if (authUser == null) {
+//			return "redirect:/user/login";
+//		}
 
 		model.addAttribute("vo", boardService.getContents(no));
 
