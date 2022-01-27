@@ -32,11 +32,12 @@
 	</bean>
 
 
+	<aop:aspectj-autoproxy />
 
 	<context:annotation-config />
 
 	<context:component-scan
-		base-package="com.poscoict.mysite.repository, com.poscoict.mysite.service">
+		base-package="com.poscoict.mysite.repository, com.poscoict.mysite.service, com.poscoict.mysite.aspect">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation"
