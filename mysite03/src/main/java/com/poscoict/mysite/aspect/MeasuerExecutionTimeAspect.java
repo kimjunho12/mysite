@@ -1,4 +1,4 @@
-package com.poscoict.mysite.asptect;
+package com.poscoict.mysite.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
