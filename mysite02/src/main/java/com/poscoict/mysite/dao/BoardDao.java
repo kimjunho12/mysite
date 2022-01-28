@@ -335,10 +335,10 @@ public class BoardDao {
 		Connection conn = null;
 		try {
 			// 1. JDBC 드라이버 로딩
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");
 
 			// 2. 연결
-			String url = "jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&serverTimezone=UTC";
+			String url = "jdbc:mysql://192.168.0.67:3307/webdb?characterEncoding=UTF-8&serverTimezone=UTC";
 			String user = "webdb";
 			String passwd = "webdb";
 			conn = DriverManager.getConnection(url, user, passwd);
