@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import com.poscoict.mysite.vo.BoardVo;
 
 public class BoardDao {
