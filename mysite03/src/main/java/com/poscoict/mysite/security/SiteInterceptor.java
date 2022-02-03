@@ -20,7 +20,6 @@ public class SiteInterceptor extends HandlerInterceptorAdapter {
 		ServletContext context = request.getServletContext();
 		SiteVo siteVo = (SiteVo) context.getAttribute("siteVo");
 		if (siteVo == null) {
-			System.out.println(siteVo);
 			context.setAttribute("siteVo", siteService.getSite());
 		}
 

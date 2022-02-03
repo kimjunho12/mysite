@@ -15,7 +15,7 @@ import com.poscoict.mysite.service.FileUploadService;
 import com.poscoict.mysite.service.SiteService;
 import com.poscoict.mysite.vo.SiteVo;
 
-//@Auth(role = "ADMIN")
+@Auth(role = "ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
