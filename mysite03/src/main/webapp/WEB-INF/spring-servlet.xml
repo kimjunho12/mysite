@@ -49,7 +49,7 @@
 		<!-- Site Interceptor -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.poscoict.mysite.security.SiteInterceptor" />
+			<bean class="com.poscoict.mysite.interceptor.SiteInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
