@@ -76,6 +76,16 @@ public class UserController {
 
 		return "redirect:/user/update";
 	}
+	
+	@RequestMapping(value = "/auth", method = RequestMethod.POST)
+	public void auth() {
+		
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logout() {
+		
+	}
 
 	// 해당 Controller 전용 에러처리
 //	@ExceptionHandler(Exception.class)

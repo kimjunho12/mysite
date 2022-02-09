@@ -22,7 +22,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 
-		return viewResolver();
+		return viewResolver;
 	}
 
 	// Message Convertor
