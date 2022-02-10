@@ -1,11 +1,14 @@
-___
-# MySite05
+package com.poscoict.mysite.initailizer;
 
-- web.xml -> WebApplicationInitailizer
+import javax.servlet.Filter;
+import javax.servlet.ServletRegistration.Dynamic;
 
-![Initailizer](../docs/spring-mvc-initializer.png)
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-```java
+import com.poscoict.mysite.config.AppConfig;
+import com.poscoict.mysite.config.WebConfig;
+
 public class MySiteWebApplicationInitailizer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
@@ -28,5 +31,9 @@ public class MySiteWebApplicationInitailizer extends AbstractAnnotationConfigDis
 		return new Filter[] { new CharacterEncodingFilter("utf-8", false) };
 	}
 
+//	@Override
+//	protected void customizeRegistration(Dynamic registration) {
+//		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+//	}
+
 }
-```
