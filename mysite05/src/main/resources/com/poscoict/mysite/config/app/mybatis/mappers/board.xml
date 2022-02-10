@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">	<!-- 구별을 위한 id상위(prefix) 개념 -->
+	<select id="findAll" parameterType="map" resultType="boardvo">
+		<choose>
+			<when test="kwd == null or kwd == ''">
+			<![CDATA[
+				SELECT b.no, b.title, u.name userName, b.hit, b.reg_date regDate, u.no userNo, b.depth, b.state
+				FROM board b JOIN user u ON b.user_no = u.no
+				ORDER BY b.g_no DESC , b.o_no ASC
+				LIMIT #{boardStart }, #{bpv }
+			]]>
+			</when>
+			<otherwise>
+			<![CDATA[
+				SELECT b.no, b.title, u.name userName, b.hit, b.reg_date regDate, u.no userNo, b.depth, b.state
+				FROM board b JOIN user u ON b.user_no = u.no
+				WHERE b.title LIKE '%${kwd }%' or b.contents LIKE '%${kwd }%'
+				ORDER BY b.g_no DESC , b.o_no ASC
+				LIMIT #{boardStart }, #{bpv }
+			]]>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getTotalCount" parameterType="string"
+		resultType="integer">
+		<choose>
+			<when test="_parameter == null or _parameter == ''">
+			<![CDATA[
+				SELECT COUNT(*) FROM board
+			]]>
+			</when>
+			<otherwise>
+			<![CDATA[
+				SELECT COUNT(*) FROM board WHERE title LIKE '%${_parameter }%' or contents LIKE '%${_parameter }%'
+			]]>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findByNo" parameterType="long" resultType="boardvo">
+	<![CDATA[
+		SELECT b.no, user_no userNo, title, contents, hit+1 hit, g_no groupNo, o_no orderNo, depth
+		FROM board b JOIN user u ON b.user_no = u.no WHERE b.no = #{no }
+	]]>
+	</select>
+
+	<update id="update" parameterType="boardvo">
+	<![CDATA[
+	
+		UPDATE board SET title=#{title }, contents=#{contents } WHERE no=#{no }
+	]]>
+	</update>
+
+	<update id="delete" parameterType="map">
+	<![CDATA[
+		UPDATE board SET state='deleted' WHERE no=#{no } and user_no=#{userNo }
+	]]>
+	</update>
+
+	<update id="updateHit" parameterType="long">
+	<![CDATA[
+		UPDATE board SET hit = hit+1 WHERE no=#{no }
+	]]>
+	</update>
+
+	<update id="updateOrderNo" parameterType="boardvo">
+	<![CDATA[
+		UPDATE board SET o_no = o_no + 1 WHERE o_no > #{orderNo } and g_no=#{groupNo }
+	]]>
+	</update>
+
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+			INSERT INTO board VALUES(null, #{userNo }, #{title }, #{contents }, 0, 
+		]]>
+		<choose>
+			<when test="groupNo == 0">
+			<![CDATA[
+				(SELECT ifnull(max(b.g_no), 0) + 1 FROM board b), 1, 0
+			]]>
+			</when>
+			<otherwise>
+			<![CDATA[
+				#{groupNo }, ${orderNo + 1 }, ${depth + 1 }
+			]]>
+			</otherwise>
+		</choose>
+		<![CDATA[
+		, now(), 'normal')
+		]]>
+	</insert>
+
+</mapper>
