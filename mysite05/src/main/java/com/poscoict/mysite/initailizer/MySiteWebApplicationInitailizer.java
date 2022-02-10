@@ -31,9 +31,9 @@ public class MySiteWebApplicationInitailizer extends AbstractAnnotationConfigDis
 		return new Filter[] { new CharacterEncodingFilter("utf-8", false) };
 	}
 
-//	@Override
-//	protected void customizeRegistration(Dynamic registration) {
-//		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
-//	}
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+	}
 
 }

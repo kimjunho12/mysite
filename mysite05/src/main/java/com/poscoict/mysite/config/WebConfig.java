@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.poscoict.config.web.AssetsMappingConfig;
 import com.poscoict.config.web.FileUploadConfig;
 import com.poscoict.config.web.MessageConfig;
 import com.poscoict.config.web.MvcConfig;
@@ -18,7 +19,7 @@ import com.poscoict.mysite.interceptor.SiteInterceptor;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan({ "com.poscoict.mysite.controller", "com.poscoict.mysite.exception" })
-@Import({ MvcConfig.class, SecurityConfig.class, MessageConfig.class, FileUploadConfig.class})
+@Import({ MvcConfig.class, SecurityConfig.class, MessageConfig.class, FileUploadConfig.class, AssetsMappingConfig.class})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
