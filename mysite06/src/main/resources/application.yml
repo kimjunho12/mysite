@@ -1,0 +1,91 @@
+spring:
+   profiles:
+      active: dev
+
+---
+# Server Config
+server:
+   port: 8080
+   servlet:
+      context-path: /mysite06
+      encoding:
+         charset: utf-8
+         enabled: true
+         force: false
+         force-request: false
+         force-response: false
+
+---
+# Common SpringBoot Configuration
+spring:
+   
+   # devtools - Live Reaload
+   livereload:
+      enable: true
+   
+   # MVC
+   mvc:
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+   
+   # Message Resource (Internationalization)
+   messages:
+      always-message-format: true
+      basename: messages/messages_ko
+      encoding: UTF-8
+   
+   # Multipart
+   multipart:
+      enabled: true
+      max-file-size: 5242880
+      max-request-size: 50MB
+
+   # AOP (@EnabledAspectJAutoProxy)
+   aop:
+      auto: true
+      proxy-target-class: true
+
+---
+# Dev Profile : SpringBoot Configuration
+spring:
+   config:
+      activate:
+         on-profile: dev
+   
+   # DataSource
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://192.168.0.67:3307/webdb?characterEncoding=UTF-8&serverTimezone=UTC
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
+
+---
+# Production Profile : SpringBoot Configuration
+spring:
+   config:
+      activate:
+         on-profile: production
+   
+   # DataSource
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://219.71.6.38:3307/webdb?characterEncoding=UTF-8&serverTimezone=UTC
+      username: webdb
+      password: webdb
+      hikari:
+         minimum-idle: 10
+         minimum-pool-size: 20
+
+---
+# Mybatis
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+
+---
+# Logging
+logging:
+   config: classpath:logback.xml
