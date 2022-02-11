@@ -1,27 +1,61 @@
 package com.poscoict.mysite.config;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.poscoict.config.web.AssetsMappingConfig;
-import com.poscoict.config.web.FileUploadConfig;
-import com.poscoict.config.web.MessageConfig;
-import com.poscoict.config.web.MvcConfig;
-import com.poscoict.config.web.SecurityConfig;
 import com.poscoict.mysite.interceptor.SiteInterceptor;
+import com.poscoict.mysite.security.AuthInterceptor;
+import com.poscoict.mysite.security.AuthUserHandlerMethodArgumentResolver;
+import com.poscoict.mysite.security.LoginInterceptor;
+import com.poscoict.mysite.security.LogoutInterceptor;
 
-@Configuration
-@EnableAspectJAutoProxy
-@ComponentScan({ "com.poscoict.mysite.controller", "com.poscoict.mysite.exception" })
-@Import({ MvcConfig.class, SecurityConfig.class, MessageConfig.class, FileUploadConfig.class, AssetsMappingConfig.class})
-public class WebConfig extends WebMvcConfigurerAdapter {
+@SpringBootConfiguration
+@PropertySource("classpath:com/poscoict/mysite/config/WebConfig.properties")
+public class WebConfig implements WebMvcConfigurer {
 
+	@Autowired
+	private Environment env;
+
+	// Argument Resolver
+	@Bean
+	public HandlerMethodArgumentResolver handlerMethodArgumentResolver() {
+
+		return new AuthUserHandlerMethodArgumentResolver();
+	}
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(handlerMethodArgumentResolver());
+	}
+
+	// Interceptors
+
+	@Bean
+	public HandlerInterceptor loginInterceptor() {
+
+		return new LoginInterceptor();
+	}
+
+	@Bean
+	public HandlerInterceptor logoutInterceptor() {
+		return new LogoutInterceptor();
+	}
+
+	@Bean
+	public HandlerInterceptor authInterceptor() {
+		return new AuthInterceptor();
+	}
+	
 	@Bean
 	public HandlerInterceptor siteInterceptor() {
 		return new SiteInterceptor();
@@ -29,9 +63,31 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry
-			.addInterceptor(siteInterceptor())
-			.addPathPatterns("/**");
+		registry.addInterceptor(loginInterceptor())
+				.addPathPatterns("/user/auth");
+
+		registry.addInterceptor(logoutInterceptor())
+				.addPathPatterns("/user/logout");
+
+		registry.addInterceptor(authInterceptor())
+				.addPathPatterns("/**")
+				.excludePathPatterns("/user/auth")
+				.excludePathPatterns("/user/logout")
+				.excludePathPatterns("/assets/**");
+		
+		registry.addInterceptor(siteInterceptor())
+				.addPathPatterns("/**");
 	}
 
+	// Resource Mapping
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping"))
+		.addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
+
+		registry.addResourceHandler(env.getProperty("assets.assetsMapping"))
+				.addResourceLocations("classpath:" + env.getProperty("assets.assetsLocation"));
+
+		
+	}
 }
