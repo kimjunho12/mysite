@@ -62,10 +62,11 @@ $(function(){
 								data-title="${vo.comment }"
 								class="image"
 								style="background-image:url('${pageContext.request.contextPath }${vo.url }')"></a>
-								
+							<c:if test="${authUser.role eq 'ADMIN' }">
 							<a	href="${pageContext.request.contextPath }/gallery/delete/${vo.no }"
 								class="del-button"
 								title="삭제"></a>
+							</c:if>	
 						</li>						
 					</c:forEach>																																			
 				</ul>	
