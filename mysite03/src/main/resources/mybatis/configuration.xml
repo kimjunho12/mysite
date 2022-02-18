@@ -6,11 +6,13 @@
 		<typeAlias type="com.poscoict.mysite.vo.GuestbookVo" alias="guestbookvo"/>
 		<typeAlias type="com.poscoict.mysite.vo.BoardVo" alias="boardvo"/>
 		<typeAlias type="com.poscoict.mysite.vo.SiteVo" alias="sitevo"/>
+		<typeAlias type="com.poscoict.mysite.vo.GalleryVo" alias="galleryvo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml"/>
 		<mapper resource="mybatis/mappers/guestbook.xml"/>
 		<mapper resource="mybatis/mappers/board.xml"/>
 		<mapper resource="mybatis/mappers/site.xml"/>
+		<mapper resource="mybatis/mappers/gallery.xml"/>
 	</mappers>
 </configuration>

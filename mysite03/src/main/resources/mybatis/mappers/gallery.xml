@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gallery">	<!-- 구별을 위한 id상위(prefix) 개념 -->
+
+	<insert id="insert" parameterType="galleryvo">
+	<![CDATA[
+		INSERT INTO gallery values(null, #{url }, #{comment })
+	]]>
+	</insert>
+
+	<select id="findAll" resultType="galleryvo">
+	<![CDATA[
+		SELECT no, url, comment
+		FROM gallery
+	]]>
+	</select>
+
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		DELETE FROM gallery WHERE no=#{no }
+	]]>
+	</delete>
+
+</mapper>
