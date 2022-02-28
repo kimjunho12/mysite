@@ -21,6 +21,6 @@ public class UserController {
 	public Object checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
 		UserVo userVo = userService.getUser(email);
 		
-		return JsonResult.success(userVo);
+		return JsonResult.success(userVo != null);
 	}
 }
