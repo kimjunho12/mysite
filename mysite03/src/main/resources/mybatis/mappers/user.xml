@@ -9,6 +9,13 @@
 	]]>
 	</select>
 
+	<select id="findByEmail" parameterType="string"
+		resultType="uservo">
+	<![CDATA[
+		SELECT no, name, role from user WHERE email=#{email }
+	]]>
+	</select>
+
 	<select id="findByNo" parameterType="long" resultType="uservo">
 	<![CDATA[
 		SELECT name, email, gender FROM user WHERE no=#{no }

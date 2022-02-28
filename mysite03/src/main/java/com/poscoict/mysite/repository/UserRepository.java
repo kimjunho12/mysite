@@ -34,4 +34,8 @@ public class UserRepository {
 	public boolean insert(UserVo vo) {
 		return 1 == sqlSession.insert("user.insert", vo);
 	}
+
+	public UserVo findByEmail(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
+	}
 }
