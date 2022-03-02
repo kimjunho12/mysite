@@ -25,5 +25,9 @@ public class UserService {
 
 	public boolean updateUser(UserVo userVo) {
 		return userRepository.update(userVo);
+	}
+
+	public UserVo getUser(String email) {
+		return userRepository.findByEmail(email);
 	}	
 }
