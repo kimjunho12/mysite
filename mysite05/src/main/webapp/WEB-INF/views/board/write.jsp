@@ -18,9 +18,12 @@
 			<div id="board">
 				<form class="board-form" method="post"
 					action="${pageContext.request.contextPath }/board/write?p=${param.p }&kwd=${param.kwd }">
-					<input type="hidden" name="groupNo" value="${empty vo.groupNo ? 0 : vo.groupNo}" />
-					<input type="hidden" name="orderNo" value="${empty vo.orderNo ? 0 : vo.orderNo}" />
-					<input type="hidden" name="depth" value="${empty vo.depth ? 0 : vo.depth}" />
+					<input type="hidden" name="groupNo"
+						value="${empty vo.groupNo ? 0 : vo.groupNo}" /> <input
+						type="hidden" name="orderNo"
+						value="${empty vo.orderNo ? 0 : vo.orderNo}" /> <input
+						type="hidden" name="depth"
+						value="${empty vo.depth ? 0 : vo.depth}" />
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -35,8 +38,9 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">취소</a> <input
-							type="submit" value="등록">
+						<a
+							href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">취소</a>
+						<input type="submit" value="등록">
 					</div>
 				</form>
 			</div>

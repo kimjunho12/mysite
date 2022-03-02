@@ -35,11 +35,14 @@ pageContext.setAttribute("newline", "\n");
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">글목록</a>
+					<a
+						href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">글목록</a>
 					<c:if test="${vo.userNo == authUser.no }">
-					<a href="${pageContext.request.contextPath }/board/modify/${vo.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
+						<a
+							href="${pageContext.request.contextPath }/board/modify/${vo.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
 					</c:if>
-					<a href="${pageContext.request.contextPath }/board/reply?no=${vo.no }&p=${param.p }&kwd=${param.kwd }">답글</a>
+					<a
+						href="${pageContext.request.contextPath }/board/reply?no=${vo.no }&p=${param.p }&kwd=${param.kwd }">답글</a>
 				</div>
 			</div>
 		</div>

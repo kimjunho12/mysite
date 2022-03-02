@@ -20,7 +20,7 @@
 		FROM guestbook ORDER BY reg_date DESC
 	]]>
 	</select>
-	
+
 	<delete id="delete" parameterType="map">
 	<![CDATA[
 		DELETE FROM guestbook WHERE no=${no } and password=${password }

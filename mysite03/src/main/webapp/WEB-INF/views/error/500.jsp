@@ -11,6 +11,6 @@
 </head>
 <body>
 	<h1>예기치 않은 오류(Internal Server Error 500) - Ooooooooooooops!</h1>
-	<p> 죄송합니다. 오류가 발생했습니다. </p> 
+	<p>죄송합니다. 오류가 발생했습니다.</p>
 </body>
 </html>

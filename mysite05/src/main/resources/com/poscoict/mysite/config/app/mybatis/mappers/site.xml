@@ -7,7 +7,7 @@
 		SELECT title, welcome, profile, description FROM site
 	]]>
 	</select>
-	
+
 	<update id="update" parameterType="sitevo">
 	<![CDATA[
 		UPDATE site SET title=#{title }, welcome=#{welcome}, profile=#{profile }, description=#{description }

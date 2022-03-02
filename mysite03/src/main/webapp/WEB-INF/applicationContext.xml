@@ -13,21 +13,27 @@
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- Connection Pool DataSource -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.0.67:3307/webdb?characterEncoding=UTF-8&amp;serverTimezone=UTC" />
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="org.mariadb.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://192.168.0.67:3307/webdb?characterEncoding=UTF-8&amp;serverTimezone=UTC" />
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
 	</bean>
 
 	<!-- MyBatis SqlSessionFactoryBean -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation"	value="classpath:mybatis/configuration.xml" />
+		<property name="configLocation"
+			value="classpath:mybatis/configuration.xml" />
 	</bean>
 
-	<!-- MyBatis SqlSessionTemplate --> 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<!-- MyBatis SqlSessionTemplate -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
