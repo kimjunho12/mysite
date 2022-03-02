@@ -23,7 +23,7 @@
 
 	<delete id="delete" parameterType="map">
 	<![CDATA[
-		DELETE FROM guestbook WHERE no=${no } and password=${password }
+		DELETE FROM guestbook WHERE no=#{no } and password=#{password }
 	]]>
 	</delete>
 
