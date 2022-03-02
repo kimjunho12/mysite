@@ -64,3 +64,15 @@ ___
  ┣ 📜pom.xml
  ┗ 📜readme.md
  ```
+ 
+1. pom.xml
+	- jackson dependency 추가
+2. JsonResult Class 추가
+3. GlobalExceptionHandler 수정
+4. UserRepository 수정
+	- Mybatis Mapper user.xml 수정
+5. UserService 수정
+6. UserController(API) 추가
+7. views/user/join.jsp 수정
+8. assets/images/check.png 추가
+9. MessageConverter 설정 (Java Config, ..config.web.MvcConfig.java)
