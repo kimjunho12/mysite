@@ -30,4 +30,8 @@ public class GuestbookRepository {
 		
 		return sqlSession.delete("guestbook.delete", param);
 	}
+
+	public List<GuestbookVo> findAllByNo(Long no) {
+		return sqlSession.selectList("guestbook.findAllByNo", no);
+	}
 }

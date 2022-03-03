@@ -21,6 +21,28 @@
 	]]>
 	</select>
 
+	<select id="findAllByNo" resultType="guestbookvo" parameterType="long">
+	<![CDATA[
+		SELECT 
+		    no,
+		    name,
+		    message,
+		    DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+		FROM
+		    guestbook
+	]]>
+	<if test="_parameter neq -1">
+	<![CDATA[
+		WHERE
+			no < #{no }
+	]]>
+	</if>
+	<![CDATA[
+		ORDER BY no DESC
+		LIMIT 0, 3;
+	]]>
+	</select>
+
 	<delete id="delete" parameterType="map">
 	<![CDATA[
 		DELETE FROM guestbook WHERE no=#{no } and password=#{password }

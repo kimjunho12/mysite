@@ -26,8 +26,8 @@ public class GuestbookController {
 	@GetMapping("")
 	public JsonResult list(@RequestParam(value = "sn", required = true, defaultValue = "0") Long sn) {
 
-		List<GuestbookVo> list = guestbookService.getMessageList();
-
+		List<GuestbookVo> list = guestbookService.get3MessageList(sn);
+		
 		return JsonResult.success(list);
 	}
 

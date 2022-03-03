@@ -23,15 +23,17 @@ pageContext.setAttribute("newline", "\n");
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	var render = function(vo) {
+		console.log("render call!");
 		var html = "<li data-no='" + vo.no + "'>" + "<strong>" + vo.name
 				+ "</strong>" + "<p>" + vo.message + "</p>"
 				+ "<a href='' data-no='" + vo.no + "'>삭제</a>" + "</li>"
 		return html;
 	}
 
+	var startNo = -1;
 	var fetch = function() {
 		$.ajax({
-			url : "${pageContext.request.contextPath }/api/guestbook?sn=",	// + ?sn=
+			url : "${pageContext.request.contextPath }/api/guestbook?sn=" + startNo,	// + ?sn=
 			type : "get",
 			dataType : "json",
 			contentType : 'application/json',
@@ -44,6 +46,7 @@ pageContext.setAttribute("newline", "\n");
 				for (var i = 0; i < response.data.length; i++) {
 					var vo = response.data[i];
 					$("#list-guestbook").append(render(vo));
+					startNo = vo.no;
 				}
 
 			}
@@ -152,8 +155,21 @@ pageContext.setAttribute("newline", "\n");
 		// 글 작성 버튼 클릭 이벤트
 		$("#add-form").submit(add);
 				
-		// 최초 리스트 가져오기
 		fetch();
+		// 스크롤
+        $(window).scroll(function() {
+            var $window = $(this);
+            var $document = $(document);
+
+            var windowHeight = $window.height();
+            var documentHeight = $document.height();
+            var scrollTop = $window.scrollTop();
+
+            if (scrollTop + windowHeight === documentHeight) {
+				// 최초 리스트 가져오기
+				fetch();
+            }
+        });
 	});
 </script>
 </head>
