@@ -2,9 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
-pageContext.setAttribute("newline", "\n");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +20,6 @@ pageContext.setAttribute("newline", "\n");
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	var render = function(vo) {
-		console.log("render call!");
 		var html = "<li data-no='" + vo.no + "'>" + "<strong>" + vo.name
 				+ "</strong>" + "<p>" + vo.message + "</p>"
 				+ "<a href='' data-no='" + vo.no + "'>삭제</a>" + "</li>"
@@ -45,6 +41,7 @@ pageContext.setAttribute("newline", "\n");
 
 				for (var i = 0; i < response.data.length; i++) {
 					var vo = response.data[i];
+					vo.message =  vo.message.replaceAll('\n', '<br>');
 					$("#list-guestbook").append(render(vo));
 					startNo = vo.no;
 				}
